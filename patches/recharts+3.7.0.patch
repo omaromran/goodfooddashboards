@@ -1,0 +1,32 @@
+diff --git a/node_modules/recharts/es6/shape/Rectangle.js b/node_modules/recharts/es6/shape/Rectangle.js
+index d471cfa..5f15a68 100644
+--- a/node_modules/recharts/es6/shape/Rectangle.js
++++ b/node_modules/recharts/es6/shape/Rectangle.js
+@@ -145,6 +145,11 @@ export var Rectangle = rectangleProps => {
+         radius: _
+       } = _svgPropertiesAndEven,
+       otherPathProps = _objectWithoutProperties(_svgPropertiesAndEven, _excluded);
++    if (typeof otherPathProps.style === 'string') {
++      otherPathProps = _objectSpread(_objectSpread({}, otherPathProps), {}, {
++        style: {}
++      });
++    }
+     return /*#__PURE__*/React.createElement("path", _extends({}, otherPathProps, {
+       x: round(x),
+       y: round(y),
+@@ -201,12 +206,13 @@ export var Rectangle = rectangleProps => {
+         radius: _
+       } = _svgPropertiesAndEven2,
+       otherPathProps = _objectWithoutProperties(_svgPropertiesAndEven2, _excluded2);
++    var resolvedStyle = typeof props.style === 'object' && props.style !== null ? props.style : {};
+     return /*#__PURE__*/React.createElement("path", _extends({}, otherPathProps, {
+       radius: typeof radius === 'number' ? radius : undefined,
+       className: layerClass,
+       d: getRectanglePath(currX, currY, currWidth, currHeight, radius),
+       ref: pathRef,
+-      style: _objectSpread(_objectSpread({}, animationStyle), props.style)
++      style: _objectSpread(_objectSpread({}, animationStyle), resolvedStyle)
+     }));
+   });
+ };
+\ No newline at end of file

@@ -1,0 +1,246 @@
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "nav main";
+  min-height: 100vh;
+}
+
+.layout-header {
+  grid-area: header;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 1px 2px rgba(45, 106, 79, 0.08);
+}
+
+.layout-header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+.tagline {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.layout-demographics-link {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+.layout-demographics-link:hover {
+  text-decoration: underline;
+}
+
+.layout-nav {
+  grid-area: nav;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.layout-nav nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0 0.75rem;
+}
+
+.nav-link {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.layout-nav-page-link {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.layout-nav-page-link:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.layout-main {
+  grid-area: main;
+  padding: 0 1.5rem 3rem;
+  min-width: 0;
+}
+
+/* Mobile menu button - hidden on desktop */
+.layout-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: -0.5rem 0 -0.5rem -0.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.layout-menu-btn:hover {
+  background: var(--accent-soft);
+}
+.layout-menu-icon {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  box-shadow: 0 -6px 0 currentColor, 0 6px 0 currentColor;
+}
+
+.layout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 46, 26, 0.4);
+  z-index: 98;
+}
+
+.layout-nav-header {
+  display: none;
+}
+
+.layout-nav-close {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "main";
+  }
+
+  .layout-header-inner {
+    padding-left: 0;
+  }
+
+  .layout-menu-btn {
+    display: flex;
+  }
+
+  .tagline {
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 50vw;
+  }
+
+  .layout-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(280px, 85vw);
+    max-width: 280px;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease-out;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    padding-top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .layout--menu-open .layout-nav {
+    transform: translateX(0);
+  }
+
+  .layout--menu-open .layout-overlay {
+    display: block;
+  }
+
+  .layout-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .layout-nav-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .layout-nav-close {
+    display: flex;
+  }
+
+  .layout-nav nav {
+    padding: 0.75rem;
+  }
+
+  .layout-main {
+    padding: 0 1rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout-header {
+    padding: 0.6rem 1rem;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+  }
+
+  .tagline {
+    max-width: 40vw;
+  }
+}

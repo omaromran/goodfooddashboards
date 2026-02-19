@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <title>GoodFood Canada — Growth & Strategy Dashboard</title>
+  </head>
+  <body>
+    <div id="root"><p style="padding:2rem;font-family:system-ui;color:#1a2e1a">Loading dashboard…</p></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      setTimeout(function () {
+        var root = document.getElementById('root');
+        if (root && root.innerText.indexOf('Loading dashboard') !== -1 && root.querySelector('section') === null) {
+          var p = document.createElement('p');
+          p.style.cssText = 'padding:0 2rem 2rem;font-family:system-ui;color:#b45309;font-size:14px;';
+          p.textContent = 'If this never changes: run "npm run dev" in the project folder, then open http://localhost:5173 in your browser.';
+          root.appendChild(p);
+        }
+      }, 4000);
+    </script>
+  </body>
+</html>

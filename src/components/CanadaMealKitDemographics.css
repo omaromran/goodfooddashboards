@@ -1,0 +1,797 @@
+/* Canada Meal Kit Demographics page */
+.canada-meal-kit-demographics {
+  min-height: 100vh;
+  background: #f9fafb;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #111827;
+}
+
+.canada-demo-header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1.25rem 1.5rem;
+}
+
+.canada-demo-header-inner {
+  max-width: 72rem;
+  margin: 0;
+  text-align: left;
+}
+
+.canada-demo-back {
+  display: inline-block;
+  font-size: 0.875rem;
+  color: #6366f1;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.canada-demo-back:hover {
+  text-decoration: underline;
+}
+
+.canada-demo-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.canada-demo-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0.25rem 0 0;
+}
+
+.canada-demo-tabs {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 1.5rem;
+}
+
+.canada-demo-tabs-inner {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.canada-demo-tab {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.canada-demo-tab:hover {
+  color: #374151;
+}
+
+.canada-demo-tab--active {
+  border-bottom-color: #6366f1;
+  color: #4f46e5;
+}
+
+.canada-demo-content {
+  padding: 1.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.canada-demo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.canada-demo-section--stack {
+  gap: 1.5rem;
+}
+
+.canada-demo-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.canada-demo-grid--2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.canada-demo-grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.canada-demo-grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+  .canada-demo-grid--2,
+  .canada-demo-grid--3,
+  .canada-demo-grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.canada-demo-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.canada-demo-card-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+  font-weight: 500;
+  margin: 0;
+}
+
+.canada-demo-card-value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0.25rem 0 0;
+}
+
+.canada-demo-card-value--sm {
+  font-size: 1.5rem;
+}
+
+.canada-demo-card-sub {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0.25rem 0 0;
+}
+
+.canada-demo-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 1rem;
+}
+
+.canada-demo-card-desc {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: -0.5rem 0 1rem;
+}
+
+.canada-demo-source {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: 0.5rem 0 0;
+  text-align: center;
+}
+
+/* Tooltip */
+.canada-demo-tooltip {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem;
+}
+
+.canada-demo-tooltip-label {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem;
+}
+
+/* TAM funnel */
+.canada-demo-funnel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.canada-demo-funnel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.canada-demo-funnel-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.canada-demo-funnel-value {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.canada-demo-funnel-bar {
+  width: 100%;
+  height: 1.25rem;
+  background: #f3f4f6;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.canada-demo-funnel-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.canada-demo-funnel-desc {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: 0.125rem 0 0;
+}
+
+/* Context blocks */
+.canada-demo-context-block {
+  background: #f9fafb;
+  border: 1px solid #f3f4f6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.canada-demo-context-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem;
+}
+
+.canada-demo-context-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.75rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.canada-demo-context-list li {
+  display: flex;
+  gap: 0.375rem;
+  align-items: flex-start;
+  margin-bottom: 0.375rem;
+}
+
+.canada-demo-context-list li::before {
+  content: "•";
+  color: #d1d5db;
+  flex-shrink: 0;
+}
+
+.canada-demo-context-list--spaced li {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.canada-demo-char-emoji {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.canada-demo-char-headline {
+  font-weight: 700;
+  color: #111827;
+  font-size: 1rem;
+  margin: 0.125rem 0 0;
+}
+
+.canada-demo-char-detail {
+  font-size: 0.75rem;
+  color: #4b5563;
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
+}
+
+/* Notes */
+.canada-demo-note {
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-size: 0.875rem;
+}
+
+.canada-demo-note--indigo {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #3730a3;
+}
+
+.canada-demo-note--yellow {
+  background: #fefce8;
+  border: 1px solid #fef08a;
+  color: #713f12;
+}
+
+.canada-demo-note--purple {
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
+  color: #5b21b6;
+}
+
+/* Brand pills */
+.canada-demo-brand-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.canada-demo-brand-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #4b5563;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.canada-demo-brand-pill:hover {
+  border-color: #9ca3af;
+}
+
+.canada-demo-brand-pill--active {
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.canada-demo-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.canada-demo-brand-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.canada-demo-brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.canada-demo-brand-target {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0.125rem 0 0;
+}
+
+.canada-demo-brand-price-wrap {
+  margin-left: auto;
+  text-align: right;
+}
+
+.canada-demo-brand-price {
+  font-weight: 700;
+  color: #111827;
+  margin: 0.125rem 0 0;
+}
+
+.canada-demo-meta-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.canada-demo-meta-icon {
+  font-size: 1.125rem;
+}
+
+.canada-demo-meta-value {
+  font-size: 0.875rem;
+  color: #1f2937;
+  margin: 0.125rem 0 0;
+}
+
+/* Table */
+.canada-demo-card--table-wrap {
+  padding: 0;
+  overflow: hidden;
+}
+
+.canada-demo-table-caption {
+  font-weight: 600;
+  color: #1f2937;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f3f4f6;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.canada-demo-table-scroll {
+  overflow-x: auto;
+}
+
+.canada-demo-table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.canada-demo-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #6b7280;
+  background: #f9fafb;
+}
+
+.canada-demo-table td {
+  padding: 0.625rem 1rem;
+  color: #374151;
+  border-top: 1px solid #f3f4f6;
+}
+
+.canada-demo-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.canada-demo-table-num {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+}
+
+/* Retention grid */
+.canada-demo-retention-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .canada-demo-retention-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.canada-demo-retention-cell {
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.canada-demo-retention-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.canada-demo-retention-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 0.25rem 0 0;
+}
+
+.canada-demo-retention--gray {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.canada-demo-retention--red {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.canada-demo-retention--green {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.canada-demo-retention--blue {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* Recipe toggle */
+.canada-demo-recipe-toggle {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+  display: flex;
+  gap: 0.25rem;
+  max-width: 28rem;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.canada-demo-toggle-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  background: none;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.canada-demo-toggle-btn:hover {
+  background: #f9fafb;
+}
+
+.canada-demo-toggle-btn--active {
+  background: #6366f1;
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.canada-demo-toggle-btn--purple.canada-demo-toggle-btn--active {
+  background: #7c3aed;
+}
+
+/* Banner */
+.canada-demo-banner {
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid;
+}
+
+.canada-demo-banner--indigo {
+  background: linear-gradient(to right, #eef2ff, #fce7f3);
+  border-color: #c7d2fe;
+}
+
+.canada-demo-banner--purple {
+  background: linear-gradient(to right, #faf5ff, #eff6ff);
+  border-color: #e9d5ff;
+}
+
+.canada-demo-banner-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.25rem;
+}
+
+.canada-demo-banner-text {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin: 0;
+}
+
+/* Persona cards */
+.canada-demo-card--persona {
+  text-align: center;
+}
+
+.canada-demo-persona-emoji {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.canada-demo-persona-name {
+  font-weight: 700;
+  color: #111827;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.canada-demo-persona-meta {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: 0.125rem 0 0;
+}
+
+.canada-demo-persona-badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+}
+
+.canada-demo-persona-time {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0.5rem 0 0;
+  line-height: 1.4;
+}
+
+/* Persona block (table section) */
+.canada-demo-card--no-pad-bottom {
+  padding-bottom: 0;
+}
+
+.canada-demo-card-head {
+  padding: 1.25rem 1.25rem 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.canada-demo-persona-block {
+  border-bottom: 1px solid #f9fafb;
+}
+
+.canada-demo-persona-block:last-child {
+  border-bottom: 0;
+}
+
+.canada-demo-persona-block-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.canada-demo-persona-block-emoji {
+  font-size: 1.25rem;
+}
+
+.canada-demo-persona-block-info {
+  flex: 1;
+}
+
+.canada-demo-persona-block-name {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.canada-demo-persona-block-priority {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-left: 0.5rem;
+}
+
+.canada-demo-persona-tags {
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.canada-demo-tag {
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  border: 1px solid;
+  background: #fff;
+}
+
+.canada-demo-tag--gray {
+  background: #f3f4f6;
+  color: #4b5563;
+  border-color: transparent;
+}
+
+.canada-demo-demand-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.canada-demo-demand-bar {
+  width: 5rem;
+  height: 0.5rem;
+  background: #f3f4f6;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.canada-demo-demand-fill {
+  height: 100%;
+  border-radius: 9999px;
+  min-width: 2px;
+}
+
+.canada-demo-demand-value {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Tags grid */
+.canada-demo-tags-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .canada-demo-tags-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.canada-demo-tag-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #f3f4f6;
+}
+
+.canada-demo-tag-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.canada-demo-tag-growth {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Tier blocks */
+.canada-demo-tier-block {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid;
+}
+
+.canada-demo-tier--red {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.canada-demo-tier--yellow {
+  background: #fefce8;
+  border-color: #fef08a;
+}
+
+.canada-demo-tier--green {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.canada-demo-tier--blue {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.canada-demo-tier--purple {
+  background: #faf5ff;
+  border-color: #e9d5ff;
+}
+
+.canada-demo-tier-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.75rem;
+}
+
+.canada-demo-tier-block .canada-demo-context-list li {
+  margin-bottom: 0.375rem;
+}
+
+/* Footer */
+.canada-demo-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  padding: 1.5rem 1rem;
+}

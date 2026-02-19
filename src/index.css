@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f5f8f5;
+  --bg-card: #ffffff;
+  --bg-elevated: #e8f0e8;
+  --text: #1a2e1a;
+  --text-muted: #5c6b5c;
+  --accent: #2d6a4f;
+  --accent-light: #40916c;
+  --accent-soft: rgba(45, 106, 79, 0.12);
+  --accent-warm: #d4732f;
+  --accent-warm-soft: rgba(212, 115, 47, 0.12);
+  --warning: #b45309;
+  --danger: #c53030;
+  --border: #d4e0d4;
+  --radius: 12px;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--text);
+  background-color: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+}
+body.layout-menu-open {
+  overflow: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.35rem; margin: 0 0 1rem; }
+h3 { font-size: 1.1rem; margin: 0 0 0.5rem; }
+
+.section {
+  padding: 2rem 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(45, 106, 79, 0.06);
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.45rem; }
+  h2 { font-size: 1.2rem; margin: 0 0 0.75rem; }
+  h3 { font-size: 1rem; }
+  .section {
+    padding: 1.25rem 1rem;
+  }
+  .card {
+    padding: 1rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.25rem; }
+  h2 { font-size: 1.1rem; }
+  h3 { font-size: 0.95rem; }
+  .section {
+    padding: 1rem 0.75rem;
+  }
+  .card {
+    padding: 0.875rem 0.75rem;
+  }
+}
+
+.card h3 {
+  color: var(--text);
+  margin-top: 0;
+}
+
+.metric {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+.metric--positive { color: var(--accent); }
+.metric--negative { color: var(--danger); }
+.metric--neutral { color: var(--text-muted); }
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+@media (max-width: 900px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 0.75rem; }
+}
+@media (max-width: 480px) {
+  .grid-2, .grid-3 { gap: 0.5rem; }
+}

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe Classics — Good Food | Internal Stakeholder Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    :root {
+      --green-deep: #2E7D32;
+      --green-mid: #66BB6A;
+      --cream: #FAFAF5;
+      --amber: #F5A623;
+      --red-badge: #C62828;
+      --grey-muted: #5a5a5a;
+      --grey-light: #e8e8e4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: #1a1a1a;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+    .section { padding: 4rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .section-title { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 2rem; color: var(--green-deep); }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: linear-gradient(165deg, var(--green-deep) 0%, #1B5E20 25%, #388E3C 50%, #81C784 75%, var(--cream) 100%);
+      color: #fff;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.25rem); margin-bottom: 1.25rem; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .hero .subheadline { font-size: clamp(1rem, 2.2vw, 1.2rem); max-width: 720px; opacity: 0.95; margin-bottom: 2rem; line-height: 1.7; }
+    .hero .cta {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--amber);
+      color: #1a1a1a;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+    /* Stat cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(46,125,50,0.08);
+      border-left: 4px solid var(--green-deep);
+    }
+    .stat-card .number { font-size: 72px; font-weight: 700; line-height: 1; color: var(--green-deep); font-family: 'Playfair Display', serif; }
+    .stat-card .label { font-size: 1rem; font-weight: 600; margin-top: 0.5rem; color: #333; }
+    .stat-card .source { font-size: 0.8rem; color: var(--grey-muted); margin-top: 0.5rem; }
+    .pull-quote {
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      font-style: italic;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(90deg, var(--grey-light) 0%, #fff 50%, var(--grey-light) 100%);
+      border-left: 4px solid var(--amber);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Competitive cards */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .comp-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border-left: 5px solid var(--red-badge);
+      position: relative;
+    }
+    .comp-card.solved {
+      border-left-width: 6px;
+      border-left-color: var(--green-deep);
+      grid-column: 1 / -1;
+      max-width: 100%;
+      padding: 2rem;
+    }
+    @media (min-width: 900px) {
+      .comp-grid { grid-template-columns: repeat(2, 1fr); }
+      .comp-card.solved { grid-column: 1 / -1; }
+    }
+    .comp-card .badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+    }
+    .comp-card .badge.fail { background: #FFEBEE; color: var(--red-badge); }
+    .comp-card .badge.pass { background: #E8F5E9; color: var(--green-deep); }
+    .comp-card .badge.case-study { background: var(--green-deep); color: #fff; }
+    .comp-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; color: #1a1a1a; }
+    .comp-card ul { margin: 0.75rem 0; padding-left: 1.25rem; }
+    .comp-card li { margin-bottom: 0.4rem; font-size: 0.95rem; }
+    .comp-card .verdict { font-weight: 600; margin-top: 1rem; font-size: 0.95rem; }
+    .comp-card.solved .verdict { color: var(--green-deep); }
+    .mini-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .mini-stat {
+      background: #E8F5E9;
+      color: var(--green-deep);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .highlight-banner {
+      margin-top: 2rem;
+      padding: 1.5rem 2rem;
+      background: linear-gradient(90deg, var(--green-deep), var(--green-mid));
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      text-align: center;
+    }
+
+    /* Behavior loop */
+    .loop-wrap {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      padding: 2rem;
+    }
+    .loop-diagram {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .loop-svg-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .loop-svg-wrap svg { width: 100%; height: 100%; }
+    .loop-svg-wrap .track { stroke: var(--green-mid); stroke-width: 2; stroke-dasharray: 8 6; fill: none; }
+    .loop-node {
+      position: absolute;
+      width: 110px;
+      padding: 0.65rem;
+      background: #fff;
+      border: 2px solid var(--green-mid);
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .loop-node:nth-child(2) { top: 2%; left: 50%; transform: translateX(-50%); }
+    .loop-node:nth-child(3) { top: 35%; right: 2%; }
+    .loop-node:nth-child(4) { bottom: 35%; right: 2%; }
+    .loop-node:nth-child(5) { bottom: 2%; left: 50%; transform: translateX(-50%); }
+    .loop-node:nth-child(6) { top: 35%; left: 2%; }
+    .loop-break {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #E8F5E9;
+      border-radius: 8px;
+      font-weight: 700;
+      color: var(--green-deep);
+      font-size: 1.05rem;
+    }
+
+    /* Personas */
+    .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .persona-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .persona-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .persona-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--green-deep); }
+    .persona-card .pain { font-style: italic; color: #444; margin-bottom: 1rem; font-size: 0.95rem; }
+    .persona-card .want { font-weight: 600; color: #1a1a1a; font-size: 0.95rem; }
+
+    /* Before / After */
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 4px 1fr;
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    @media (max-width: 700px) { .before-after { grid-template-columns: 1fr; grid-template-rows: auto 4px auto; } }
+    .before-after .side {
+      padding: 2rem;
+    }
+    .before-after .before { background: #f0f0ec; color: #444; }
+    .before-after .after { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); color: #1a1a1a; }
+    .before-after .divider { background: var(--green-deep); }
+    @media (max-width: 700px) { .before-after .divider { grid-column: 1; height: 4px; width: 100%; } }
+    .before-after h3 { font-size: 1.35rem; margin-bottom: 1rem; }
+    .before-after .before h3 { color: var(--grey-muted); }
+    .before-after .after h3 { color: var(--green-deep); }
+    .before-after ul { padding-left: 1.25rem; margin-top: 0.5rem; }
+    .before-after li { margin-bottom: 0.5rem; }
+
+    /* How it works */
+    .steps-flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    @media (max-width: 700px) { .steps-flow { grid-template-columns: 1fr; } }
+    .step-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border-top: 4px solid var(--green-deep);
+      text-align: center;
+    }
+    .step-card .num { font-size: 3rem; font-weight: 700; color: var(--green-mid); font-family: 'Playfair Display', serif; line-height: 1; margin-bottom: 0.5rem; }
+    .step-card h3 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+    .step-card p { font-size: 0.95rem; color: #444; }
+
+    /* Business impact */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 600px) { .impact-grid { grid-template-columns: 1fr; } }
+    .impact-card {
+      background: #fff;
+      padding: 1.75rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border-left: 4px solid var(--amber);
+    }
+    .impact-card .icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .impact-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+    .impact-card p { font-size: 0.9rem; color: #444; }
+
+    /* Roadmap */
+    .roadmap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background: var(--grey-light);
+      z-index: 0;
+    }
+    @media (max-width: 700px) { .roadmap::before { display: none; } }
+    .roadmap-phase {
+      flex: 1;
+      min-width: 200px;
+      max-width: 260px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      position: relative;
+      z-index: 1;
+      border-top: 4px solid var(--green-deep);
+    }
+    .roadmap-phase .phase-num { font-size: 1.5rem; font-weight: 700; color: var(--green-deep); margin-bottom: 0.5rem; }
+    .roadmap-phase h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .roadmap-phase p { font-size: 0.9rem; color: #444; }
+    .close-statement {
+      font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+      font-weight: 700;
+      text-align: center;
+      max-width: 800px;
+      margin: 2rem auto 0;
+      line-height: 1.6;
+      color: var(--green-deep);
+    }
+  </style>
+</head>
+<body>
+  <!-- 1. HERO -->
+  <section class="hero" id="hero">
+    <p style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:1rem; opacity:0.9;">Good Food Canada — Internal Stakeholder Presentation</p>
+    <h1>Not Everyone Wants to Experiment — And That's Okay</h1>
+    <p class="subheadline">Good Food is celebrated for culinary innovation and new recipe discovery. But there's a growing segment of customers who open the app each week and simply want Butter Chicken, Spaghetti Bolognese, or a Classic Burger — and can't find them. This is costing us subscribers.</p>
+    <a class="cta" href="#industry-problem">See the Opportunity</a>
+  </section>
+
+  <!-- 2. INDUSTRY PROBLEM -->
+  <section class="section" id="industry-problem" data-aos="fade-up">
+    <h2 class="section-title">The Industry Problem</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="number">90%</div>
+        <div class="label">of new meal kit subscribers cancel within their first year</div>
+        <div class="source">Wall Street Journal / FRAYT 2024</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">~50%</div>
+        <div class="label">of subscribers cancel within the first month alone</div>
+        <div class="source">HelloFresh & Blue Apron customer data analysis</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">Only 20%</div>
+        <div class="label">of meal kit customers keep their subscription beyond 6 months</div>
+        <div class="source">Industry retention analysis, Banknotes</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">$8.7B</div>
+        <div class="label">U.S. meal kit market size in 2024 — yet churn remains the industry's #1 crisis</div>
+        <div class="source">FRAYT 2024</div>
+      </div>
+    </div>
+    <blockquote class="pull-quote">"Meal-kits fail because they are boring — when familiar comfort foods aren't reliably available, customers leave."<br>— Salon, July 2024</blockquote>
+  </section>
+
+  <!-- 3. COMPETITIVE ANALYSIS -->
+  <section class="section" id="competitive" data-aos="fade-up" style="background: var(--grey-light);">
+    <h2 class="section-title">The Industry Has Tried to Solve This. None Have Cracked It — Except One.</h2>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <span class="badge fail">❌ No Permanent Classics</span>
+        <h3>HelloFresh Canada / Global</h3>
+        <ul>
+          <li>40+ rotating recipes/week across 8 dietary categories</li>
+          <li>Has a "Hall of Fame" tag for beloved recipes — BUT these still rotate in and out weekly. Customers cannot access a Hall of Fame dish on demand; it appears when HelloFresh decides, not when the customer wants it</li>
+          <li>In the UK (HelloFresh's strongest market), they cut 15% of their workforce in late 2024, closed a major fulfilment centre putting 900 jobs at risk, and have not turned a pre-tax profit since 2020</li>
+          <li>Their 12-month customer retention in the UK sits at just ~9%</li>
+        </ul>
+        <p class="verdict">Verdict: Recognition exists. Access does not. Customers who want a favourite dish this week simply may not find it.</p>
+      </div>
+      <div class="comp-card">
+        <span class="badge fail">❌ No Permanent Classics</span>
+        <h3>Chefs Plate (owned by HelloFresh, Canada)</h3>
+        <ul>
+          <li>24 recipes/week, leaning toward simple comfort food</li>
+          <li>Recipes rotate every 4–5 weeks — classics do reappear, but on Chefs Plate's schedule, not the customer's</li>
+          <li>Budget-friendly at $8.99/serving, but no dedicated classics feature or permanent category</li>
+        </ul>
+        <p class="verdict">Verdict: Closest feel to comfort food, but still fully rotational. No guarantee.</p>
+      </div>
+      <div class="comp-card">
+        <span class="badge fail">❌ Comfort Brand Promise, No Permanent Access</span>
+        <h3>EveryPlate (HelloFresh subsidiary, U.S.)</h3>
+        <ul>
+          <li>Built its entire brand identity around "homestyle classics and comfort food"</li>
+          <li>30+ weekly recipes anchored in crowd-pleasers: pastas, tacos, chicken dishes, burgers</li>
+          <li>This brand-level comfort promise attracts customers — but the actual recipes still rotate weekly</li>
+          <li>Biggest market proof that the demand for comfort/classics is MASSIVE — yet still no always-available classics system</li>
+        </ul>
+        <p class="verdict">Verdict: They identified the need and built a brand around it. But they didn't build the feature.</p>
+      </div>
+      <div class="comp-card solved">
+        <span class="badge case-study">Case Study</span>
+        <span class="badge pass" style="top: 3.2rem;">✅ SOLVED IT</span>
+        <h3>GOUSTO (UK) 🏆</h3>
+        <p><strong>And the Numbers Prove It</strong></p>
+        <ul>
+          <li>Gousto formally created a permanently available category called "Everyday Favourites"</li>
+          <li>Their own website states: "the nation's favourite family classics, available on our menu every week"</li>
+          <li>How they built it: Gousto went to families across the UK, asked which meals had kids rushing to the table, identified the top 10 most beloved dishes, and made them permanently available — with reduced prep time, added veg, and a Gousto twist. These meals never leave the menu.</li>
+          <li>They run this alongside 75–175 new rotating recipes each week and a searchable cookbook archive of 9,000+ dishes — so customers get both comfort AND discovery, every single week</li>
+          <li>Additional always-on categories: 10-Min Meals, Family Classics, Joe Wicks Picks, Calorie Controlled — all permanently accessible, not rotational</li>
+        </ul>
+        <p><strong>Business Results (mini stat badges):</strong></p>
+        <div class="mini-stats">
+          <span class="mini-stat">Cut losses by £55M in 2024 (from £75.6M to £20.3M)</span>
+          <span class="mini-stat">Record EBITDA £42M in 2024 — highest in company history</span>
+          <span class="mini-stat">Positive free cashflow for the first time ever</span>
+          <span class="mini-stat">Revenue +11% in H1 2025 — "market-beating growth"</span>
+          <span class="mini-stat">Expanding into Ireland to take on HelloFresh</span>
+          <span class="mini-stat">CEO: "Gousto is winning category share"</span>
+        </div>
+        <p style="font-size:0.9rem; color:#444;">Meanwhile HelloFresh UK: closed warehouse, cut 900 jobs, no profit since 2020.</p>
+        <p class="verdict">✅ Permanent classics. Named feature. Customer-led design. Proven retention results.</p>
+      </div>
+      <div class="comp-card">
+        <span class="badge fail">❌ Gap Exists — First-Mover Opportunity</span>
+        <h3>Good Food (Canada)</h3>
+        <ul>
+          <li>12–25 rotating recipes/week across 5 plan types: Classic, Easy Prep, Low Carb, Vegetarian, Family</li>
+          <li>Known for speed (10-minute meals) and culinary innovation — strong differentiators</li>
+          <li>But: no permanent classics section. All recipes rotate on Good Food's schedule</li>
+          <li>A customer who wants Butter Chicken or Classic Spaghetti this week may simply not find it — and that friction is a churn trigger</li>
+        </ul>
+        <p class="verdict">Verdict: ❌ The gap is real. And no Canadian competitor has filled it yet. Good Food can be first.</p>
+      </div>
+    </div>
+    <div class="highlight-banner">Gousto built 'Everyday Favourites' after listening to customers. Revenue grew 11% in 6 months. HelloFresh — which didn't — cut 900 jobs. The data is clear: classics aren't a nice-to-have. They're a retention engine.</div>
+  </section>
+
+  <!-- 4. CUSTOMER BEHAVIOR LOOP -->
+  <section class="section" id="behavior-loop" data-aos="fade-up">
+    <h2 class="section-title">Why Customers Leave — And How We Break the Cycle</h2>
+    <div class="loop-wrap">
+      <div class="loop-diagram">
+        <div class="loop-svg-wrap">
+          <svg viewBox="0 0 400 400">
+            <defs>
+              <path id="loopTrack" d="M 200 28 L 308 98 L 308 262 L 200 372 L 92 262 L 92 98 Z" fill="none"/>
+            </defs>
+            <use href="#loopTrack" class="track" stroke="#66BB6A" stroke-width="2" stroke-dasharray="8 6"/>
+            <circle r="8" fill="var(--amber)">
+              <animateMotion dur="6s" repeatCount="indefinite" path="M 200 28 L 308 98 L 308 262 L 200 372 L 92 262 L 92 98 Z"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="loop-node">1. New subscriber signs up — excited and curious</div>
+        <div class="loop-node">2. Explores new recipes for 2–3 weeks</div>
+        <div class="loop-node">3. Wants a familiar, reliable meal — can't find it</div>
+        <div class="loop-node">4. Doubt and friction set in</div>
+        <div class="loop-node">5. Cancels or discount-hops to a competitor</div>
+      </div>
+      <div class="loop-break">Good Food Classics Feature → Breaks the cycle at Step 3. Customer stays.</div>
+    </div>
+  </section>
+
+  <!-- 5. PERSONAS -->
+  <section class="section" id="personas" data-aos="fade-up" style="background: var(--grey-light);">
+    <h2 class="section-title">Who This Affects</h2>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="icon">🏠</div>
+        <h3>The Busy Parent</h3>
+        <p class="pain">"I need 3 meals I know my kids will eat. I don't have time to gamble on something new every week."</p>
+        <p class="want">Reliable classics always available alongside the new stuff</p>
+      </div>
+      <div class="persona-card">
+        <div class="icon">🔪</div>
+        <h3>The Hesitant Cook</h3>
+        <p class="pain">"I'm still building confidence in the kitchen. I need a recipe I've made before so I don't fail on a Tuesday night."</p>
+        <p class="want">A 'safe zone' of familiar recipes they can return to</p>
+      </div>
+      <div class="persona-card">
+        <div class="icon">⭐</div>
+        <h3>The Loyal Subscriber</h3>
+        <p class="pain">"I love Good Food but I can never find that Butter Chicken I made 3 months ago. I end up skipping my box."</p>
+        <p class="want">Their favourite recipes always accessible, not dependent on Good Food's rotation calendar</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. BEFORE & AFTER -->
+  <section class="section" id="before-after" data-aos="fade-up">
+    <h2 class="section-title">The Opportunity — Before & After</h2>
+    <div class="before-after">
+      <div class="side before">
+        <h3>BEFORE</h3>
+        <ul>
+          <li>Rotating weekly menu only</li>
+          <li>Customer scrolls through unfamiliar dishes</li>
+          <li>No guaranteed access to favourite meals</li>
+          <li>Frustration builds → box skipped or subscription cancelled</li>
+        </ul>
+      </div>
+      <div class="divider" aria-hidden="true"></div>
+      <div class="side after">
+        <h3>AFTER</h3>
+        <ul>
+          <li>Two clear tabs: "New This Week 🔥" and "Our Classics ❤️"</li>
+          <li>Classics tab always shows: Butter Chicken, Spaghetti Bolognese, Classic Burgers, Chicken Stir Fry, Shepherd's Pie, Creamy Pasta — permanently available, never rotated out</li>
+          <li>Customer builds their box with any mix they want, any week</li>
+          <li>Discovery when they're in the mood. Comfort when they're not.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. HOW IT WORKS -->
+  <section class="section" id="how-it-works" data-aos="fade-up" style="background: var(--grey-light);">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps-flow">
+      <div class="step-card">
+        <div class="num">1</div>
+        <h3>Sign Up & Set Preferences</h3>
+        <p>Customer completes onboarding and sets their taste profile</p>
+      </div>
+      <div class="step-card">
+        <div class="num">2</div>
+        <h3>See Two Tabs Every Week</h3>
+        <p>"New This Week" = rotating, innovative, seasonal dishes. "Our Classics" = permanently available comfort favourites, always there</p>
+      </div>
+      <div class="step-card">
+        <div class="num">3</div>
+        <h3>Build Your Box, Your Way</h3>
+        <p>Any combination. Any week. Experiment when inspired. Fall back on classics when not. No friction. No FOMO. No churn trigger.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. BUSINESS IMPACT -->
+  <section class="section" id="impact" data-aos="fade-up">
+    <h2 class="section-title">Business Impact</h2>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="icon">📉</div>
+        <h3>Reduced Churn</h3>
+        <p>Industry baseline: 90% of subscribers cancel in year 1. Even a 10% improvement in retention = significant LTV gain at scale.</p>
+      </div>
+      <div class="impact-card">
+        <div class="icon">🚀</div>
+        <h3>Stronger Onboarding</h3>
+        <p>New subscribers who find a familiar meal in week 1 are more likely to continue past month 1 — the highest-risk churn window.</p>
+      </div>
+      <div class="impact-card">
+        <div class="icon">🔁</div>
+        <h3>Higher Reorder Frequency</h3>
+        <p>Comfort seekers become habitual orderers. A subscriber who orders their favourite meal every 2 weeks is a long-term customer.</p>
+      </div>
+      <div class="impact-card">
+        <div class="icon">🏆</div>
+        <h3>Competitive Differentiation</h3>
+        <p>No Canadian meal kit currently offers permanent classics. Good Food can be first — and own that positioning before HelloFresh or Chefs Plate copies it.</p>
+      </div>
+    </div>
+    <blockquote class="pull-quote" style="margin-top: 2rem;">"Giving customers what they already love is the fastest way to earn the trust to introduce them to something new."</blockquote>
+  </section>
+
+  <!-- 9. THE ASK — ROADMAP -->
+  <section class="section" id="roadmap" data-aos="fade-up" style="background: var(--grey-light);">
+    <h2 class="section-title">The Ask — Roadmap & Close</h2>
+    <div class="roadmap">
+      <div class="roadmap-phase">
+        <div class="phase-num">Phase 1</div>
+        <h3>Discover</h3>
+        <p>Customer research — identify top 10 most-wanted classics from existing subscribers. Survey churned customers about missing meals.</p>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-num">Phase 2</div>
+        <h3>Design</h3>
+        <p>UX/UI for the Classics tab integrated into the existing recipe selection flow. No rebuild needed — one new tab, one new filter logic.</p>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-num">Phase 3</div>
+        <h3>Pilot</h3>
+        <p>Test with a churn-risk subscriber segment. Measure: skip rate, cancellation rate, reorder frequency, NPS.</p>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-num">Phase 4</div>
+        <h3>Roll Out</h3>
+        <p>Launch to all subscribers with a "We Listened" brand moment. PR opportunity: Good Food becomes the first Canadian meal kit to guarantee comfort.</p>
+      </div>
+    </div>
+    <p class="close-statement">Good Food has always been ahead of the curve on innovation. Now it's time to be ahead of the curve on comfort. Be the first Canadian meal kit to guarantee your customers will always find what they love — every single week.</p>
+  </section>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 600, offset: 80, once: true });
+  </script>
+</body>
+</html>
