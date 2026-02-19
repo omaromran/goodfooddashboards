@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoodFood AI Agents Strategy — Executive One-Pager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-deep: #2E7D32;
+      --green-mid: #66BB6A;
+      --green-light: #C8E6C9;
+      --cream: #FAFAF5;
+      --amber: #F5A623;
+      --grey-muted: #5a5a5a;
+      --grey-light: #e8e8e4;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: #1a1a1a; line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+    .section { padding: 3.5rem 1.5rem; max-width: 960px; margin: 0 auto; }
+    .section-title { font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 1.5rem; color: var(--green-deep); border-bottom: 2px solid var(--green-light); padding-bottom: 0.5rem; }
+
+    /* Hero */
+    .hero {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: linear-gradient(165deg, var(--green-deep) 0%, #1B5E20 45%, #388E3C 75%, #66BB6A 100%);
+      color: var(--white);
+    }
+    .hero .eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 0.75rem; font-weight: 600;
+    }
+    .hero h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 1rem; text-shadow: 0 2px 8px rgba(0,0,0,0.15); line-height: 1.2; }
+    .hero .subheadline { font-size: clamp(0.95rem, 2vw, 1.1rem); max-width: 580px; opacity: 0.95; margin-bottom: 1.5rem; line-height: 1.65; }
+    .hero .scroll-hint { font-size: 0.8rem; opacity: 0.85; letter-spacing: 0.05em; }
+
+    /* What we're doing + Why */
+    .intro-block {
+      background: var(--white);
+      padding: 2rem 2.25rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(46,125,50,0.08);
+      border-left: 5px solid var(--green-deep);
+      margin-bottom: 1.5rem;
+    }
+    .intro-block h2 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--green-deep); }
+    .intro-block p { margin-bottom: 0.75rem; font-size: 1rem; }
+    .intro-block p:last-child { margin-bottom: 0; }
+    .why-list {
+      list-style: none; padding-left: 0; margin-top: 1rem;
+    }
+    .why-list li {
+      position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+      font-size: 0.95rem; color: #333;
+    }
+    .why-list li::before { content: "→"; position: absolute; left: 0; color: var(--green-deep); font-weight: 700; }
+    .ebitda-callout {
+      background: linear-gradient(135deg, var(--green-light) 0%, #E8F5E9 100%);
+      padding: 1rem 1.25rem; border-radius: 8px; margin-top: 1rem;
+      font-weight: 600; color: var(--green-deep); font-size: 0.95rem;
+    }
+
+    /* How it works — Foundation */
+    .foundation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 640px) { .foundation-grid { grid-template-columns: 1fr; } }
+    .foundation-card {
+      background: var(--white);
+      padding: 1.25rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+      border-top: 3px solid var(--green-mid);
+    }
+    .foundation-card h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--green-deep); }
+    .foundation-card p { font-size: 0.9rem; color: #444; }
+    .foundation-note {
+      margin-top: 1.25rem; padding: 1rem; background: var(--grey-light); border-radius: 8px;
+      font-size: 0.9rem; color: #333; font-style: italic;
+    }
+
+    /* Department agents */
+    .agents-tabs {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;
+    }
+    .agents-tab {
+      padding: 0.5rem 1rem; background: var(--white); border: 2px solid var(--grey-light);
+      border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: var(--grey-muted);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .agents-tab:hover, .agents-tab.active { border-color: var(--green-deep); color: var(--green-deep); background: var(--green-light); }
+    .agent-category { margin-bottom: 2.5rem; }
+    .agent-category h3 {
+      font-size: 1.15rem; color: var(--green-deep); margin-bottom: 1rem;
+      padding-bottom: 0.35rem; border-bottom: 1px solid var(--grey-light);
+    }
+    .agent-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .agent-card {
+      background: var(--white);
+      padding: 1.25rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+      border-left: 4px solid var(--green-mid);
+    }
+    .agent-card .agent-num { font-size: 0.75rem; font-weight: 700; color: var(--green-deep); margin-bottom: 0.35rem; }
+    .agent-card h4 { font-size: 1rem; margin-bottom: 0.5rem; color: #1a1a1a; }
+    .agent-card ul { padding-left: 1.1rem; font-size: 0.88rem; color: #444; }
+    .agent-card li { margin-bottom: 0.25rem; }
+    .agent-card.high-control { border-left-color: var(--amber); }
+    .agent-card.high-control .agent-num { color: #B8860B; }
+
+    /* How agents work together */
+    .together-section { background: var(--grey-light); }
+    .signal-examples {
+      display: grid; gap: 1rem; margin: 1.25rem 0;
+    }
+    .signal-example {
+      background: var(--white);
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--green-deep);
+      font-size: 0.9rem;
+    }
+    .signal-example strong { color: var(--green-deep); }
+    .automation-rules {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 600px) { .automation-rules { grid-template-columns: 1fr; } }
+    .rule-box {
+      padding: 1.25rem; border-radius: 10px; font-size: 0.9rem;
+    }
+    .rule-box.auto { background: #E8F5E9; border: 2px solid var(--green-mid); color: #1B5E20; }
+    .rule-box.approval { background: #FFF8E1; border: 2px solid var(--amber); color: #5D4E37; }
+    .rule-box h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .rule-box ul { padding-left: 1.1rem; margin-top: 0.5rem; }
+    .rule-box li { margin-bottom: 0.2rem; }
+
+    /* 90-day execution */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 700px) { .timeline { grid-template-columns: 1fr; } }
+    .timeline-phase {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(46,125,50,0.08);
+      border-top: 4px solid var(--green-deep);
+    }
+    .timeline-phase .weeks { font-size: 0.8rem; font-weight: 700; color: var(--green-deep); letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .timeline-phase h3 { font-size: 1.1rem; margin-bottom: 0.75rem; color: #1a1a1a; }
+    .timeline-phase .launch { font-size: 0.85rem; font-weight: 600; color: #333; margin-bottom: 0.35rem; }
+    .timeline-phase .deliver { font-size: 0.85rem; color: #555; padding-left: 0.5rem; border-left: 3px solid var(--green-light); }
+    .timeline-phase ul { margin-top: 0.75rem; padding-left: 1rem; font-size: 0.88rem; color: #444; }
+    .timeline-phase li { margin-bottom: 0.2rem; }
+
+    /* Success measures */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .metric-card {
+      background: var(--white);
+      padding: 1.25rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+      border: 1px solid #E8F5E9;
+    }
+    .metric-card .arrow { font-size: 1.5rem; margin-bottom: 0.35rem; }
+    .metric-card .arrow.down { color: #2E7D32; }
+    .metric-card .arrow.up { color: var(--green-deep); }
+    .metric-card .label { font-size: 0.9rem; font-weight: 600; color: #333; }
+    .metric-card .detail { font-size: 0.8rem; color: var(--grey-muted); margin-top: 0.25rem; }
+
+    /* Executive takeaway */
+    .takeaway {
+      background: linear-gradient(135deg, var(--green-deep) 0%, #1B5E20 100%);
+      color: var(--white);
+      padding: 2.5rem 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .takeaway .tagline { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem; }
+    .takeaway p { font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.65; max-width: 720px; margin: 0 auto 1rem; opacity: 0.95; }
+    .takeaway .bullets { text-align: left; max-width: 480px; margin: 1.25rem auto 0; list-style: none; padding: 0; }
+    .takeaway .bullets li { padding-left: 1.5rem; position: relative; margin-bottom: 0.5rem; font-size: 0.95rem; }
+    .takeaway .bullets li::before { content: "✓"; position: absolute; left: 0; color: var(--amber); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <section class="hero">
+    <p class="eyebrow">GoodFood Canada — Internal Strategy</p>
+    <h1>AI Agents Strategy</h1>
+    <p class="subheadline">One AI agent per major department: each reads its area, suggests best actions, and automates safe tasks. All agents work together so the company learns faster and executes consistently.</p>
+    <p class="scroll-hint">↓ Scroll for full strategy</p>
+  </section>
+
+  <!-- What we're doing + Why -->
+  <section class="section" id="what">
+    <h2 class="section-title">What We’re Doing</h2>
+    <div class="intro-block">
+      <h2>In simple terms</h2>
+      <p>We will build <strong>one AI agent for each major department</strong> at Goodfood.</p>
+      <p>Each agent will read what’s happening in its area, suggest best actions, and automate safe tasks.</p>
+      <p>All agents will work together so the company learns faster and executes consistently.</p>
+    </div>
+    <div class="intro-block">
+      <h2>Why</h2>
+      <ul class="why-list">
+        <li>Lower costs (customer service + waste)</li>
+        <li>Reduce refunds</li>
+        <li>Improve retention</li>
+        <li>Improve menu quality</li>
+        <li>Increase margin</li>
+      </ul>
+      <div class="ebitda-callout">→ Directly improving EBITDA.</div>
+    </div>
+  </section>
+
+  <!-- How it works — Foundation -->
+  <section class="section">
+    <h2 class="section-title">How It Works — One Shared AI Foundation</h2>
+    <p style="margin-bottom: 0.5rem;">All agents use the same:</p>
+    <div class="foundation-grid">
+      <div class="foundation-card">
+        <h3>Customer & order context</h3>
+        <p>What was ordered, delivery issues, preferences, history.</p>
+      </div>
+      <div class="foundation-card">
+        <h3>Feedback & sentiment</h3>
+        <p>Tickets, reviews, surveys, social comments.</p>
+      </div>
+      <div class="foundation-card">
+        <h3>Menu, inventory & costs</h3>
+        <p>Ingredients, supplier constraints, recipe ratings.</p>
+      </div>
+      <div class="foundation-card">
+        <h3>Company rules</h3>
+        <p>Brand tone, refund rules, food safety escalation, privacy rules.</p>
+      </div>
+    </div>
+    <div class="foundation-note">This ensures agents are consistent, don’t contradict each other, and follow Goodfood policies.</div>
+  </section>
+
+  <!-- Department agents -->
+  <section class="section">
+    <h2 class="section-title">The Department Agents</h2>
+
+    <div class="agent-category">
+      <h3>Customer Experience (Support + Feedback)</h3>
+      <div class="agent-cards">
+        <div class="agent-card">
+          <div class="agent-num">1 — Voice of Customer</div>
+          <h4>Customer Feedback Agent</h4>
+          <ul>
+            <li>Reads feedback across reviews, surveys, support</li>
+            <li>Summarizes biggest issues each week (refunds, churn drivers)</li>
+            <li>Suggests fixes and priorities with estimated impact</li>
+          </ul>
+        </div>
+        <div class="agent-card">
+          <div class="agent-num">2</div>
+          <h4>Customer Service Agent</h4>
+          <ul>
+            <li>Helps agents answer faster with approved responses</li>
+            <li>Routes issues to the right team automatically</li>
+            <li>Suggests credits/refunds based on rules (approval when needed)</li>
+          </ul>
+        </div>
+        <div class="agent-card">
+          <div class="agent-num">3</div>
+          <h4>Social & Community Agent</h4>
+          <ul>
+            <li>Tracks what people say online, flags risks early</li>
+            <li>Suggests responses and content ideas</li>
+            <li>Alerts team if something is trending or a brand issue</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-category">
+      <h3>Marketing & Growth</h3>
+      <div class="agent-cards">
+        <div class="agent-card">
+          <div class="agent-num">4</div>
+          <h4>Retention & Loyalty Agent</h4>
+          <ul>
+            <li>Identifies customers at risk of leaving; suggests best outreach</li>
+            <li>Creates targeted win-back and loyalty messages (not blanket discounts)</li>
+            <li>Recommends weekly tests to improve retention and margin</li>
+          </ul>
+        </div>
+        <div class="agent-card">
+          <div class="agent-num">5</div>
+          <h4>Acquisition & Creative Agent</h4>
+          <ul>
+            <li>Produces ad angles, copy, creative briefs from what’s working</li>
+            <li>Keeps messaging on-brand, avoids risky claims</li>
+            <li>Speeds up marketing production cycles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-category">
+      <h3>Menu, Recipes & Operations</h3>
+      <div class="agent-cards">
+        <div class="agent-card">
+          <div class="agent-num">6</div>
+          <h4>Recipe & Menu Curation Agent</h4>
+          <ul>
+            <li>Suggests weekly menus: taste + simplicity + cost + feasibility</li>
+            <li>Flags recipes that cause complaints (too long, bland, portions)</li>
+            <li>Improves personalization (quick meals, family, high-protein, etc.)</li>
+          </ul>
+        </div>
+        <div class="agent-card">
+          <div class="agent-num">7</div>
+          <h4>Inventory & Substitution Agent</h4>
+          <ul>
+            <li>Warns early if ingredients are at risk of shortage</li>
+            <li>Suggests better substitutions customers will accept</li>
+            <li>Helps reduce waste and spoilage</li>
+          </ul>
+        </div>
+        <div class="agent-card high-control">
+          <div class="agent-num">8 — High control</div>
+          <h4>Quality & Food Safety Agent</h4>
+          <ul>
+            <li>Detects serious issues (allergens, illness reports, packaging breaches)</li>
+            <li>Escalates immediately to the right leaders</li>
+            <li>Provides approved templates and steps for fast, safe response</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-category">
+      <h3>Finance / EBITDA</h3>
+      <div class="agent-cards">
+        <div class="agent-card">
+          <div class="agent-num">9</div>
+          <h4>EBITDA & Performance Agent</h4>
+          <ul>
+            <li>Tracks where money is lost (refunds, credits, waste, inefficient promos)</li>
+            <li>Helps prioritize initiatives by ROI</li>
+            <li>Maintains an “EBITDA impact scoreboard” for leadership</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How agents work together -->
+  <section class="section together-section">
+    <h2 class="section-title">How Agents Work Together</h2>
+    <p style="margin-bottom: 0.5rem;"><strong>Shared signals → coordinated action.</strong> When one agent finds an issue, it notifies the others so everyone responds consistently.</p>
+    <div class="signal-examples">
+      <div class="signal-example">
+        <strong>Example:</strong> If the Feedback Agent sees “soggy greens” rising, the Recipe Agent reviews recipe/packaging, the Inventory Agent checks sourcing, and Customer Service uses an updated response.
+      </div>
+      <div class="signal-example">
+        <strong>Example:</strong> If the Social Agent sees a negative trend, it alerts Customer Service (for messaging) and Quality (if safety-related).
+      </div>
+      <div class="signal-example">
+        <strong>Example:</strong> If Retention sees churn rising around a specific recipe type, it feeds that back into Menu Curation.
+      </div>
+    </div>
+    <p style="font-weight: 600; margin-top: 1rem;">Clear rules on what can be automated</p>
+    <div class="automation-rules">
+      <div class="rule-box auto">
+        <h4>Auto (safe)</h4>
+        <p>Summarizing, tagging, drafting replies, routing, weekly reports, suggesting actions.</p>
+      </div>
+      <div class="rule-box approval">
+        <h4>Approval required</h4>
+        <p>Credits/refunds execution, menu changes, pricing changes, public statements, food safety communications.</p>
+      </div>
+    </div>
+    <p style="font-size: 0.9rem; margin-top: 1rem; color: #555;">Control stays where it matters; time is saved everywhere else.</p>
+  </section>
+
+  <!-- 90-day execution -->
+  <section class="section">
+    <h2 class="section-title">Execution Plan — 90 Days</h2>
+    <div class="timeline">
+      <div class="timeline-phase">
+        <div class="weeks">Weeks 1–4</div>
+        <h3>Quick wins + foundation</h3>
+        <p class="launch">Launch:</p>
+        <p class="deliver">Customer Feedback Agent, Customer Service Agent</p>
+        <p class="launch" style="margin-top: 0.75rem;">Deliver:</p>
+        <ul>
+          <li>Weekly top issues report + prioritized fixes</li>
+          <li>Faster support responses and better routing</li>
+        </ul>
+      </div>
+      <div class="timeline-phase">
+        <div class="weeks">Weeks 5–8</div>
+        <h3>Retention + menus</h3>
+        <p class="launch">Launch:</p>
+        <p class="deliver">Recipe/Menu Curation Agent, Retention & Loyalty Agent</p>
+        <p class="launch" style="margin-top: 0.75rem;">Deliver:</p>
+        <ul>
+          <li>Better weekly menu decisions</li>
+          <li>Smarter retention outreach, fewer margin-killing discounts</li>
+        </ul>
+      </div>
+      <div class="timeline-phase">
+        <div class="weeks">Weeks 9–12</div>
+        <h3>Waste + brand protection</h3>
+        <p class="launch">Launch:</p>
+        <p class="deliver">Inventory/Substitution Agent, Social Agent, Quality/Food Safety Agent</p>
+        <p class="launch" style="margin-top: 0.75rem;">Deliver:</p>
+        <ul>
+          <li>Fewer stockouts/spoilage</li>
+          <li>Faster detection of risks and faster response</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success measures -->
+  <section class="section">
+    <h2 class="section-title">Success Measures — What Leadership Will See</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="arrow down">↓</div>
+        <div class="label">Support cost</div>
+        <div class="detail">Faster handling time, higher first-time resolution</div>
+      </div>
+      <div class="metric-card">
+        <div class="arrow down">↓</div>
+        <div class="label">Refunds / credits</div>
+        <div class="detail">Fewer repeat issues, less leakage</div>
+      </div>
+      <div class="metric-card">
+        <div class="arrow up">↑</div>
+        <div class="label">Retention</div>
+        <div class="detail">Higher repeat rate, lower churn</div>
+      </div>
+      <div class="metric-card">
+        <div class="arrow up">↑</div>
+        <div class="label">Margin</div>
+        <div class="detail">Better recipe profitability, less waste, better promo ROI</div>
+      </div>
+      <div class="metric-card">
+        <div class="arrow up">↑</div>
+        <div class="label">Speed</div>
+        <div class="detail">Faster insight → decision → fix</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Executive takeaway -->
+  <section class="section">
+    <div class="takeaway">
+      <p class="tagline">The executive takeaway</p>
+      <p>This is not “AI for AI’s sake.” It’s a practical system where each department gets an AI assistant, and all assistants work together to:</p>
+      <ul class="bullets">
+        <li>Automate routine work</li>
+        <li>Recommend best practices</li>
+        <li>Prevent issues before they grow</li>
+        <li>Improve EBITDA with measurable results</li>
+      </ul>
+    </div>
+  </section>
+</body>
+</html>

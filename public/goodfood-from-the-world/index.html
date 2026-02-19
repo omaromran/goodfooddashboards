@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoodFood from the World — Crowdsourced Recipe Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a;
+    --moss: #2d5a3d;
+    --sage: #5a8a6a;
+    --cream: #f5f0e8;
+    --warm-white: #faf8f3;
+    --gold: #c8a84b;
+    --terracotta: #c4603a;
+    --burgundy: #7a2535;
+    --text: #1a1a18;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--warm-white); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    background: var(--forest);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(200,168,75,0.08), transparent 55%),
+                radial-gradient(circle at 80% 20%, rgba(90,138,106,0.12), transparent 50%);
+  }
+  .hero-left {
+    position: relative; z-index: 2;
+    padding: 90px 60px 90px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px; font-weight: 500;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 6vw, 86px);
+    line-height: 1.0; color: var(--cream); font-weight: 900;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-title-tag { font-size: 0.32em; font-weight: 600; font-style: normal; color: var(--sage); letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-top: 0.2em; }
+  .hero-sub {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 20px; color: var(--sage); margin: 16px 0 12px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero-first {
+    font-size: 14px; font-weight: 600; color: var(--gold);
+    letter-spacing: 0.08em; margin-bottom: 32px;
+    animation: fadeUp 0.7s 0.25s ease both;
+  }
+  .hero-desc {
+    font-size: 16px; line-height: 1.8;
+    color: rgba(245,240,232,0.72); max-width: 460px; margin-bottom: 44px;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn-gold {
+    display: inline-block; background: var(--gold); color: var(--forest);
+    padding: 16px 36px; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(200,168,75,0.4); }
+
+  .hero-right {
+    position: relative; z-index: 2;
+    display: grid; grid-template-rows: 1fr 1fr; overflow: hidden;
+  }
+  .hero-photo-collage {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3px; height: 100%;
+  }
+  .hero-photo {
+    overflow: hidden; position: relative;
+  }
+  .hero-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.75) saturate(1.1);
+    transition: transform 6s ease;
+  }
+  .hero-photo:hover img { transform: scale(1.05); }
+  .hero-photo .flag-label {
+    position: absolute; bottom: 12px; left: 12px;
+    background: rgba(26,58,42,0.85); backdrop-filter: blur(4px);
+    color: var(--cream); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 12px;
+  }
+  .hero-photo-full {
+    grid-column: 1 / -1; overflow: hidden; position: relative;
+  }
+  .hero-photo-full img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.7) saturate(1.1);
+  }
+  .hero-photo-full .flag-label {
+    position: absolute; bottom: 12px; left: 12px;
+    background: rgba(26,58,42,0.85); backdrop-filter: blur(4px);
+    color: var(--cream); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 12px;
+  }
+  .hero-right.hero-single {
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px; background: var(--forest);
+  }
+  .hero-right.hero-single img {
+    width: 100%; height: 100%; object-fit: contain; object-position: center;
+    mix-blend-mode: lighten;
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+
+  /* ── EMOTIONAL HOOK ── */
+  .section-emotion {
+    background: var(--cream);
+    padding: 110px 80px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .emotion-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 52px);
+    font-style: italic; font-weight: 400;
+    line-height: 1.3; color: var(--forest);
+  }
+  .emotion-quote span { color: var(--terracotta); }
+  .emotion-quote cite {
+    display: block; font-size: 14px; font-style: normal;
+    color: var(--sage); margin-top: 24px; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .emotion-right p {
+    font-size: 17px; line-height: 1.9; color: #4a4a44; margin-bottom: 24px;
+  }
+  .emotion-right p strong { color: var(--forest); font-weight: 500; }
+  .emotion-stat {
+    display: flex; gap: 40px; margin-top: 40px; padding-top: 40px;
+    border-top: 1px solid rgba(200,168,75,0.3);
+  }
+  .emotion-stat-item { text-align: center; }
+  .emotion-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px; font-weight: 900; color: var(--terracotta); line-height: 1;
+  }
+  .emotion-stat-label { font-size: 12px; color: var(--sage); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px; }
+
+  /* ── HOW IT WORKS ── */
+  .section-how { background: var(--warm-white); padding: 100px 80px; }
+  .section-label { font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 58px); font-weight: 900; color: var(--forest);
+    line-height: 1.1; margin-bottom: 60px;
+  }
+  .section-heading em { font-style: italic; color: var(--sage); }
+  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .step {
+    background: var(--forest); padding: 48px 32px;
+    position: relative; overflow: hidden; transition: transform 0.3s;
+  }
+  .step:hover { transform: translateY(-6px); }
+  .step::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+  }
+  .step:hover::after { transform: scaleX(1); }
+  .step-num { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 900; color: rgba(200,168,75,0.45); line-height: 1; margin-bottom: 20px; }
+  .step-icon { font-size: 34px; margin-bottom: 16px; display: block; }
+  .step h3 { font-family: 'Playfair Display', serif; font-size: 19px; color: var(--cream); margin-bottom: 10px; }
+  .step p { font-size: 13.5px; color: rgba(245,240,232,0.6); line-height: 1.7; }
+
+  /* ── CREATOR STORIES / BOX ── */
+  .section-stories {
+    background: var(--forest);
+    padding: 110px 80px;
+  }
+  .section-stories .section-heading { color: var(--cream); }
+  .stories-intro {
+    font-size: 17px; line-height: 1.85; color: rgba(245,240,232,0.65);
+    max-width: 680px; margin-bottom: 72px;
+  }
+  .story-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+  .story-card { background: #0f2619; overflow: hidden; position: relative; transition: transform 0.35s; }
+  .story-card:hover { transform: translateY(-8px); z-index: 2; }
+  .story-card-photo {
+    height: 280px; overflow: hidden; position: relative;
+  }
+  .story-card-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.8) saturate(1.05);
+    transition: transform 0.6s ease;
+  }
+  .story-card:hover .story-card-photo img { transform: scale(1.06); }
+  .country-chip {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--gold); color: var(--forest);
+    font-size: 10px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; padding: 4px 12px;
+  }
+  .story-card-body { padding: 32px 28px 36px; }
+  .story-card-body h3 {
+    font-family: 'Playfair Display', serif; font-size: 22px;
+    color: var(--cream); margin-bottom: 4px;
+  }
+  .story-card-body .recipe-name {
+    font-size: 12px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px;
+  }
+  .story-card-body p {
+    font-size: 14px; line-height: 1.75; color: rgba(245,240,232,0.58); margin-bottom: 24px;
+  }
+  .story-card-body .royalty-tag {
+    background: var(--moss); color: var(--gold);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    padding: 5px 14px; display: inline-block; margin-right: 8px;
+  }
+  .story-card-body .votes-tag {
+    font-size: 12px; color: var(--sage);
+  }
+
+  /* BOX MOCKUP */
+  .section-box {
+    background: var(--cream); padding: 110px 80px;
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center;
+  }
+  .box-text .section-heading { margin-bottom: 24px; }
+  .box-text p {
+    font-size: 16px; line-height: 1.85; color: #5a5a54; margin-bottom: 20px;
+  }
+  .box-text p strong { color: var(--forest); }
+  .box-feature {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 20px 0; border-bottom: 1px solid rgba(200,168,75,0.2);
+  }
+  .box-feature:last-of-type { border-bottom: none; }
+  .box-feature-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+  .box-feature-text h4 { font-size: 15px; font-weight: 500; color: var(--forest); margin-bottom: 4px; }
+  .box-feature-text p { font-size: 13.5px; color: #7a7a74; line-height: 1.65; margin: 0; }
+
+  .box-visual {
+    position: relative;
+  }
+  .box-mockup {
+    background: var(--forest);
+    padding: 0; overflow: hidden;
+    box-shadow: 0 40px 100px rgba(26,58,42,0.25);
+  }
+  .box-mockup-img {
+    width: 100%; display: block;
+    filter: brightness(0.85) saturate(1.1);
+  }
+  .box-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(26,58,42,0.97) 0%, rgba(26,58,42,0.5) 60%, transparent 100%);
+    padding: 36px 32px;
+  }
+  .box-overlay-creator {
+    display: flex; gap: 16px; align-items: center;
+  }
+  .box-overlay-creator img {
+    width: 56px; height: 56px; border-radius: 50%;
+    object-fit: cover; border: 2px solid var(--gold);
+  }
+  .box-overlay-creator-text h4 { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--cream); margin-bottom: 2px; }
+  .box-overlay-creator-text p { font-size: 12px; color: var(--sage); }
+  .box-overlay-quote {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 15px; color: rgba(245,240,232,0.75); margin-top: 14px; line-height: 1.6;
+  }
+
+  /* ── CAMPAIGNS ── */
+  .section-campaigns {
+    background: var(--warm-white); padding: 110px 80px;
+  }
+  .campaigns-intro {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 72px;
+  }
+  .campaigns-intro p {
+    font-size: 16px; line-height: 1.85; color: #5a5a54; margin-top: 24px;
+  }
+  .campaign-phases {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .campaign-phase {
+    background: var(--cream); padding: 36px 28px; position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .campaign-phase:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(26,58,42,0.1); }
+  .phase-num {
+    font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 900;
+    color: rgba(200,168,75,0.15); position: absolute; top: -8px; right: 16px; line-height: 1;
+  }
+  .phase-tag {
+    display: inline-block; background: var(--forest); color: var(--gold);
+    font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 4px 12px; margin-bottom: 20px;
+  }
+  .campaign-phase h3 {
+    font-family: 'Playfair Display', serif; font-size: 20px; color: var(--forest);
+    margin-bottom: 12px;
+  }
+  .campaign-phase p { font-size: 13.5px; color: #6a6a64; line-height: 1.7; }
+
+  /* ── ORGANIC MARKETING POWER ── */
+  .section-organic {
+    background: var(--terracotta); padding: 110px 80px;
+    position: relative; overflow: hidden;
+  }
+  .section-organic::before {
+    content: '📢'; font-size: 400px; position: absolute;
+    right: -60px; top: 50%; transform: translateY(-50%);
+    opacity: 0.07; line-height: 1;
+  }
+  .organic-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .organic-left .section-heading { color: var(--cream); }
+  .organic-left .section-heading em { color: rgba(245,240,232,0.55); }
+  .organic-manifesto {
+    font-size: 17px; line-height: 1.9; color: rgba(245,240,232,0.82);
+    margin-top: 24px;
+  }
+  .organic-manifesto strong { color: var(--cream); font-weight: 500; }
+  .organic-right {
+    display: flex; flex-direction: column; gap: 0;
+    padding-top: 72px;
+  }
+  .organic-point {
+    padding: 28px 0; border-bottom: 1px solid rgba(245,240,232,0.15);
+    display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: start;
+  }
+  .organic-point:last-child { border-bottom: none; }
+  .organic-point-icon { font-size: 32px; line-height: 1; }
+  .organic-point h4 { font-size: 15px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+  .organic-point p { font-size: 13.5px; color: rgba(245,240,232,0.65); line-height: 1.7; }
+  .organic-big-stat {
+    margin-top: 56px; padding: 44px; background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(245,240,232,0.2);
+    grid-column: 1 / -1;
+  }
+  .organic-big-stat blockquote {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: clamp(24px, 3vw, 40px); color: var(--cream); line-height: 1.3;
+    font-weight: 400;
+  }
+  .organic-big-stat blockquote em { color: rgba(245,240,232,0.5); font-size: 0.75em; }
+  .organic-big-stat blockquote span { color: #ffe8cc; }
+
+  /* ── IMPACT ── */
+  .section-impact { background: var(--forest); padding: 110px 80px; }
+  .section-impact .section-heading { color: var(--cream); }
+  .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .impact-card { border-top: 1px solid rgba(200,168,75,0.25); padding-top: 36px; }
+  .impact-num { font-family: 'Playfair Display', serif; font-size: 58px; font-weight: 900; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+  .impact-label { font-size: 13px; color: var(--sage); font-weight: 500; letter-spacing: 0.06em; margin-bottom: 10px; text-transform: uppercase; }
+  .impact-desc { font-size: 13.5px; color: rgba(245,240,232,0.52); line-height: 1.75; }
+
+  /* ── ROYALTY ── */
+  .section-royalty {
+    background: var(--warm-white); padding: 110px 80px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .royalty-table-wrap {
+    background: var(--forest); padding: 52px;
+    box-shadow: 0 40px 80px rgba(26,58,42,0.2);
+  }
+  .royalty-table-wrap h3 {
+    font-family: 'Playfair Display', serif; font-size: 26px; color: var(--cream); margin-bottom: 6px;
+  }
+  .royalty-table-wrap p { font-size: 13px; color: var(--sage); margin-bottom: 36px; }
+  .earnings-table { width: 100%; border-collapse: collapse; }
+  .earnings-table tr { border-bottom: 1px solid rgba(200,168,75,0.12); }
+  .earnings-table td { padding: 16px 0; font-size: 14px; color: rgba(245,240,232,0.65); }
+  .earnings-table td:last-child { text-align: right; color: var(--gold); font-family: 'Playfair Display', serif; font-size: 20px; }
+  .earnings-table tr.highlight td { color: var(--cream); }
+  .earnings-table tr.highlight td:last-child { color: #ffe070; font-size: 26px; }
+  .royalty-note { font-size: 11px; color: rgba(245,240,232,0.25); margin-top: 20px; letter-spacing: 0.05em; }
+
+  .royalty-right p { font-size: 16px; line-height: 1.9; color: #5a5a54; margin-bottom: 20px; }
+  .royalty-right p strong { color: var(--forest); }
+
+  /* ── CTA ── */
+  .section-cta {
+    background: var(--forest); padding: 100px 80px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .section-cta::before {
+    content: '🌍'; font-size: 360px; opacity: 0.05;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  }
+  .section-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 5vw, 68px); font-weight: 900;
+    color: var(--cream); line-height: 1.1; margin-bottom: 20px; position: relative;
+  }
+  .section-cta h2 em { font-style: italic; color: var(--gold); }
+  .section-cta p {
+    font-size: 17px; color: rgba(245,240,232,0.65); max-width: 580px;
+    margin: 0 auto 48px; line-height: 1.75; position: relative;
+  }
+  .cta-row { display: flex; gap: 16px; justify-content: center; position: relative; }
+  .btn-outline {
+    background: transparent; color: var(--cream); border: 1px solid rgba(245,240,232,0.4);
+    padding: 16px 40px; font-size: 12px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-outline:hover { background: rgba(245,240,232,0.08); }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 80px; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { height: 380px; }
+    .hero-photo-collage { grid-template-rows: 1fr; }
+    .section-emotion, .section-box, .section-campaigns, .organic-inner, .section-royalty { grid-template-columns: 1fr; gap: 48px; }
+    .steps-grid, .story-cards, .impact-grid, .campaign-phases { grid-template-columns: 1fr 1fr; }
+    .section-how, .section-stories, .section-box, .section-campaigns, .section-organic, .section-impact, .section-royalty, .section-cta, .section-emotion { padding: 64px 40px; }
+    .hero-left { padding: 60px 40px; }
+    .divider { margin: 0 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-left">
+    <div class="eyebrow">A New RTE Program Proposal — Internal Strategy</div>
+    <h1 class="hero-title">GoodFood<br>from the<br><em>World</em><br><span class="hero-title-tag">Crowdsourced Recipes</span></h1>
+    <p class="hero-sub">Where Every Kitchen Tells a Story</p>
+    <p class="hero-first">First in the industry.</p>
+    <p class="hero-desc">
+      A community-powered recipe crowdsourcing program that turns subscribers into creators —
+      grandmothers from Naples, home cooks from Caracas, chefs from Cape Town —
+      and rewards them with real royalties for every box sold.
+    </p>
+  </div>
+  <div class="hero-right hero-single">
+    <img src="images/hero-nonna-maria.png" alt="Nonna Maria's Chicken Fettuccine Alfredo — GoodFood Ready-to-Eat" />
+  </div>
+</section>
+
+<!-- ═══ EMOTIONAL HOOK ═══ -->
+<section class="section-emotion reveal">
+  <div class="emotion-quote">
+    <p>"Behind every recipe is a <span>life</span>, a memory, a place someone calls home."</p>
+    <cite>— The Insight that Changes Everything</cite>
+  </div>
+  <div class="emotion-right">
+    <p>
+      Meal kits have always sold <strong>convenience</strong>. But the next frontier of loyalty isn't about speed —
+      it's about <strong>meaning</strong>. When a subscriber cooks Francesca's mother's ragù or Nomvula's family
+      umngqusho, they're not just making dinner. They're making a connection.
+    </p>
+    <p>
+      GoodFood from the World transforms the subscription box into a vessel of <strong>human stories</strong>.
+      The recipe is the hook. The person behind it is the reason people stay.
+    </p>
+    <p>
+      And when that person earns a royalty — when their name is printed on 10,000 boxes shipped
+      across Canada — something remarkable happens. <strong>They become advocates for life.</strong>
+    </p>
+    <div class="emotion-stat">
+      <div class="emotion-stat-item">
+        <div class="emotion-stat-num">8×</div>
+        <div class="emotion-stat-label">More sharing when<br>personal story attached</div>
+      </div>
+      <div class="emotion-stat-item">
+        <div class="emotion-stat-num">63%</div>
+        <div class="emotion-stat-label">Consumers prefer brands<br>with authentic stories</div>
+      </div>
+      <div class="emotion-stat-item">
+        <div class="emotion-stat-num">∞</div>
+        <div class="emotion-stat-label">Cost of earned<br>word-of-mouth</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="section-how reveal">
+  <div class="section-label">The Program</div>
+  <h2 class="section-heading">How it <em>works</em></h2>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <span class="step-icon">📝</span>
+      <h3>Subscribers Submit</h3>
+      <p>Any subscriber submits their original recipe with their story, cultural background, and inspiration. A simple portal makes it effortless — in minutes, not hours.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <span class="step-icon">🗳️</span>
+      <h3>Community Votes</h3>
+      <p>The community votes on their favourites weekly. Every vote is a touchpoint between boxes — building engagement, anticipation, and a reason to stay subscribed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <span class="step-icon">🏆</span>
+      <h3>Top 3 Featured</h3>
+      <p>The three highest-voted recipes are tested, refined, and featured in the weekly RTE lineup — with the creator's face, name, and story printed on every box.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <span class="step-icon">💰</span>
+      <h3>Royalty Per Box</h3>
+      <p>For every box sold, the creator earns a per-box royalty. Real income, real recognition — transforming a cherished recipe into a source of pride and earnings.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CREATOR STORIES ═══ -->
+<section class="section-stories reveal">
+  <div class="section-label" style="color:var(--sage)">The Creators</div>
+  <h2 class="section-heading">Real people. <em>Real stories.</em></h2>
+  <p class="stories-intro">
+    These aren't invented characters. They're subscribers with kitchens full of memory, culture, and love.
+    GoodFood from the World gives them a stage — and the world a seat at their table.
+  </p>
+  <div class="story-cards">
+
+    <div class="story-card">
+      <div class="story-card-photo">
+        <img src="images/francesca-moretti.png" alt="Francesca Moretti from Italy" />
+        <div class="country-chip">🇮🇹 Italy</div>
+      </div>
+      <div class="story-card-body">
+        <h3>Francesca Moretti</h3>
+        <div class="recipe-name">Nonna's Ribollita Toscana</div>
+        <p>
+          "This soup has been in my family for four generations. My grandmother made it every Sunday in her kitchen in Florence.
+          When I moved to Montreal, it was the first thing I cooked. It cured my homesickness every time."
+        </p>
+        <span class="royalty-tag">$0.85 / box earned</span>
+        <span class="votes-tag">⭐ 5,240 votes</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-photo">
+        <img src="images/hero-venezuela.jpg" alt="Alex from Venezuela" />
+        <div class="country-chip">🇻🇪 Venezuela</div>
+      </div>
+      <div class="story-card-body">
+        <h3>Alex Ruiz</h3>
+        <div class="recipe-name">Pabellón Criollo — My Mother's Version</div>
+        <p>
+          "Growing up in Caracas, this was on our table every Sunday. Black beans, shredded beef, sweet plantains, white rice —
+          it's the most Venezuelan meal you can make. My mother taught me at age seven. Now my kids love it in Canada."
+        </p>
+        <span class="royalty-tag">$0.85 / box earned</span>
+        <span class="votes-tag">🔥 4,811 votes</span>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-photo">
+        <img src="images/nomvula-dlamini.png" alt="Nomvula Dlamini from South Africa" />
+        <div class="country-chip">🇿🇦 South Africa</div>
+      </div>
+      <div class="story-card-body">
+        <h3>Nomvula Dlamini</h3>
+        <div class="recipe-name">Bobotie with Golden Rice</div>
+        <p>
+          "Bobotie is the soul of South African cooking — a perfect mix of Cape Malay spices and tender beef.
+          My aunt served it at every celebration. Sharing it through GoodFood felt like sending a piece of
+          our culture across the world."
+        </p>
+        <span class="royalty-tag">$0.85 / box earned</span>
+        <span class="votes-tag">🌍 3,990 votes</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ THE BOX EXPERIENCE ═══ -->
+<section class="section-box reveal">
+  <div class="box-text">
+    <div class="section-label">The Box</div>
+    <h2 class="section-heading">Their face.<br>Their story.<br><em>Your dinner.</em></h2>
+    <p>
+      The creator's photograph and personal story are printed directly on every box shipped.
+      It's not a product anymore — <strong>it's a letter from a stranger who became a friend</strong>.
+    </p>
+    <p>
+      Subscribers who know the story of what they're cooking feel a deeper connection to GoodFood.
+      They share it. They talk about it. They remember it.
+    </p>
+    <div class="box-feature">
+      <div class="box-feature-icon">📸</div>
+      <div class="box-feature-text">
+        <h4>Creator Portrait on Every Box</h4>
+        <p>A full-colour photograph of the creator in their own kitchen — authentic, warm, human.</p>
+      </div>
+    </div>
+    <div class="box-feature">
+      <div class="box-feature-icon">📖</div>
+      <div class="box-feature-text">
+        <h4>Origin Story Insert Card</h4>
+        <p>A beautifully designed card inside the box tells the creator's story, heritage, and the memory behind the recipe.</p>
+      </div>
+    </div>
+    <div class="box-feature">
+      <div class="box-feature-icon">🔗</div>
+      <div class="box-feature-text">
+        <h4>QR Code to Creator's Profile</h4>
+        <p>Scan to watch a short video of the creator making the dish in their own kitchen. A bridge from the box to a human face.</p>
+      </div>
+    </div>
+    <div class="box-feature">
+      <div class="box-feature-icon">💬</div>
+      <div class="box-feature-text">
+        <h4>Leave the Creator a Note</h4>
+        <p>Subscribers can send a message to the creator through the app — creating a genuine community moment that no competitor offers.</p>
+      </div>
+    </div>
+  </div>
+  <div class="box-visual">
+    <div class="box-mockup">
+      <img class="box-mockup-img" src="images/box-mockup.jpg" alt="Meal kit delivery box" />
+      <div class="box-overlay">
+        <div class="box-overlay-creator">
+          <img src="images/francesca-moretti.png" alt="Francesca Moretti" />
+          <div class="box-overlay-creator-text">
+            <h4>Francesca Moretti — Naples, Italy 🇮🇹</h4>
+            <p>Nonna's Ribollita Toscana · 5,240 community votes</p>
+          </div>
+        </div>
+        <div class="box-overlay-quote">
+          "This soup fed my family for four generations. Now it feeds yours."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ CAMPAIGNS ═══ -->
+<section class="section-campaigns reveal">
+  <div class="campaigns-intro">
+    <div>
+      <div class="section-label">The Long Game</div>
+      <h2 class="section-heading">How GoodFood<br><em>changed their lives</em></h2>
+    </div>
+    <div>
+      <p>
+        The program doesn't end when the box ships. Over time, GoodFood will run
+        a <strong>series of creator campaigns</strong> — real, unscripted stories of how the program
+        transformed the lives of the people who started as subscribers and became known worldwide.
+        These campaigns become the most powerful marketing asset GoodFood has ever built.
+      </p>
+    </div>
+  </div>
+  <div class="campaign-phases">
+    <div class="campaign-phase">
+      <div class="phase-num">I</div>
+      <div class="phase-tag">Phase 1 · Launch</div>
+      <h3>"Meet the Creator" Series</h3>
+      <p>
+        Short-form video profiles of the first cohort of creators.
+        Released on social media as the program launches — building awareness,
+        curiosity, and emotional pull. Subscribers see themselves in the creators.
+      </p>
+    </div>
+    <div class="campaign-phase">
+      <div class="phase-num">II</div>
+      <div class="phase-tag">Phase 2 · 6 Months</div>
+      <h3>"What Happened Next" Follow-Ups</h3>
+      <p>
+        Return to creators 6 months later. How many boxes sold?
+        How much did they earn? Did their family know?
+        Did strangers reach out? These stories write themselves —
+        and the media will run them for free.
+      </p>
+    </div>
+    <div class="campaign-phase">
+      <div class="phase-num">III</div>
+      <div class="phase-tag">Phase 3 · Annual</div>
+      <h3>"GoodFood Changed My Life" Campaign</h3>
+      <p>
+        Annual flagship campaign featuring the year's top creators.
+        A Francesca who paid off debt. An Alex who started a catering business.
+        A Nomvula who connected with her culture from across the ocean.
+        <strong>Advertising that moves people to tears — and to subscribe.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ORGANIC MARKETING POWER ═══ -->
+<section class="section-organic reveal">
+  <div class="organic-inner">
+    <div class="organic-left">
+      <div class="section-label" style="color:rgba(245,240,232,0.5)">The Unfair Advantage</div>
+      <h2 class="section-heading">Organic growth that no<br><em>budget can buy</em></h2>
+      <p class="organic-manifesto">
+        Every paid campaign stops when you stop paying. But a creator who earned $3,000 in royalties
+        from her family's recipe? <strong>She never stops talking about it.</strong> Her family never stops talking about it.
+        Her community never stops talking about it.
+      </p>
+      <p class="organic-manifesto" style="margin-top: 20px;">
+        This is the most powerful growth engine available to GoodFood —
+        and it costs a fraction of what we currently spend on acquisition.
+        <strong>Human stories spread. Ads don't.</strong>
+      </p>
+    </div>
+    <div class="organic-right">
+      <div class="organic-point">
+        <div class="organic-point-icon">🗣️</div>
+        <div>
+          <h4>Creators are Natural Ambassadors</h4>
+          <p>When someone's recipe is featured, they tell everyone they know. Their social network becomes GoodFood's acquisition channel — zero cost, infinite authenticity.</p>
+        </div>
+      </div>
+      <div class="organic-point">
+        <div class="organic-point-icon">📱</div>
+        <div>
+          <h4>Shareable by Design</h4>
+          <p>Subscribers photograph the box with the creator's face and post it. The unboxing becomes a story moment — user-generated content at scale that no agency could replicate.</p>
+        </div>
+      </div>
+      <div class="organic-point">
+        <div class="organic-point-icon">📰</div>
+        <div>
+          <h4>Earned Media Machine</h4>
+          <p>A grandmother from Naples whose ragù is now in 15,000 Canadian homes is a story CBC, Globe & Mail, and BuzzFeed all run for free. Priceless press, zero spend.</p>
+        </div>
+      </div>
+      <div class="organic-point">
+        <div class="organic-point-icon">🌊</div>
+        <div>
+          <h4>Community Network Effects</h4>
+          <p>Each new creator brings their community into the GoodFood orbit. As the program scales, so does the audience — exponentially, not linearly.</p>
+        </div>
+      </div>
+    </div>
+    <div class="organic-big-stat" style="grid-column:1/-1; background:rgba(255,255,255,0.08); border:1px solid rgba(245,240,232,0.15); padding:44px; margin-top: 16px;">
+      <blockquote>
+        "The most powerful marketing we will ever do is to make the people we serve <span>famous for their food</span> — and let them carry our story to the world.
+        This reaches further than any campaign budget we could ever allocate. <em>It compounds forever.</em>"
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STRATEGIC IMPACT ═══ -->
+<section class="section-impact reveal">
+  <div class="section-label" style="color:var(--sage)">Strategic Benefits</div>
+  <h2 class="section-heading" style="margin-bottom:56px">Why this <em>moves the needle</em></h2>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-num">↑ LTV</div>
+      <div class="impact-label">Retention Through Belonging</div>
+      <p class="impact-desc">Subscribers who participate in voting and feel connected to creators churn far less. They don't cancel because they're not just customers — they're community members.</p>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">≈ $0</div>
+      <div class="impact-label">Near-Zero Recipe R&D</div>
+      <p class="impact-desc">The community generates recipe ideas at no cost. GoodFood only invests in testing top finalists — dramatically reducing culinary R&D while expanding authentic variety.</p>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">🌍 ∞</div>
+      <div class="impact-label">Authentic Global Variety</div>
+      <p class="impact-desc">Rather than simulating global cuisine through an internal team, GoodFood sources authentic recipes from people who actually grew up cooking them.</p>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">🥇 1st</div>
+      <div class="impact-label">Uncopyable Differentiation</div>
+      <p class="impact-desc">No meal kit competitor has a creator-royalty program for RTEs. This is a first-mover opportunity to own a narrative no one else can credibly claim.</p>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">📣 WOM</div>
+      <div class="impact-label">Viral Word-of-Mouth</div>
+      <p class="impact-desc">Creators naturally share across social platforms, driving organic acquisition at a cost per new subscriber that paid channels can never match.</p>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">📺 PR</div>
+      <div class="impact-label">Earned Media at Scale</div>
+      <p class="impact-desc">The creator stories generate press, podcast mentions, and social coverage that function as permanent, compounding advertising — paid for by impact, not budget.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ROYALTY ═══ -->
+<section class="section-royalty reveal">
+  <div class="royalty-table-wrap">
+    <h3>Creator Earnings Potential</h3>
+    <p>Per featured recipe, per week — at $0.85/box</p>
+    <table class="earnings-table">
+      <tr><td>500 boxes</td><td>$425</td></tr>
+      <tr><td>1,000 boxes</td><td>$850</td></tr>
+      <tr><td>2,500 boxes</td><td>$2,125</td></tr>
+      <tr class="highlight"><td>5,000 boxes</td><td>$4,250</td></tr>
+      <tr class="highlight"><td>10,000 boxes</td><td>$8,500</td></tr>
+    </table>
+    <p class="royalty-note">Illustrative model. Royalty rate to be confirmed during program design.</p>
+  </div>
+  <div class="royalty-right">
+    <div class="section-label">The Economics</div>
+    <h2 class="section-heading">High signal.<br><em>Low cost.</em></h2>
+    <p>
+      The royalty cost is modest relative to what it unlocks. A creator who earns $4,000 in a single week
+      doesn't just become a customer for life — <strong>they become our most credible salesperson</strong>.
+    </p>
+    <p>
+      The psychological value of earning real money from something you created far exceeds the dollar amount.
+      The story of that earning spreads organically — in family WhatsApp groups, at dinner tables,
+      on Instagram — reaching audiences <strong>no paid campaign ever could</strong>.
+    </p>
+    <p>
+      Compare this to a cost-per-acquisition through digital advertising. The creator's network often
+      delivers at a fraction of the cost, with <strong>10× the conversion trust</strong> of any banner or sponsored post.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="section-cta reveal">
+  <h2>The World is<br>GoodFood's <em>Kitchen.</em></h2>
+  <p>
+    Let's build the program that invites the world's greatest home cooks to cook with us —
+    and grow a brand that no budget alone could ever build.
+    This is how GoodFood becomes a movement.
+  </p>
+</section>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
