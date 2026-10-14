@@ -317,12 +317,18 @@ export default function GoodfoodGrowthStrategy() {
             <div>
               <h1 className="text-3xl font-bold">Goodfood Growth Strategy Dashboard</h1>
               <p className="text-emerald-100 text-sm mt-1">Turnaround Strategy 2026-2027 · Built on Q1 FY2026 Results</p>
-              <div className="flex gap-4 mt-2">
+              <div className="flex flex-wrap gap-3 mt-3">
                 <Link to="/canada-meal-kit-demographics" className="text-emerald-100 hover:text-white text-sm font-medium underline">
                   Meal kit demographics
                 </Link>
                 <Link to="/canada-rte" className="text-emerald-100 hover:text-white text-sm font-medium underline">
                   Ready-to-eat (RTE)
+                </Link>
+                <Link
+                  to="/goodai/subscribers"
+                  className="rounded-full bg-white/15 px-3 py-1 text-sm font-semibold text-white hover:bg-white/25"
+                >
+                  GoodAI subscribers
                 </Link>
               </div>
             </div>
