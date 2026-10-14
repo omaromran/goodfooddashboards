@@ -7,6 +7,7 @@ import { ErrorBoundary } from './ErrorBoundary.tsx';
 const GoodfoodGrowthStrategy = lazy(() => import('./components/GoodfoodGrowthStrategy.tsx'));
 const CanadaMealKitDemographics = lazy(() => import('./components/CanadaMealKitDemographics.tsx'));
 const CanadaRTE = lazy(() => import('./components/CanadaRTE.tsx'));
+const GoodAISubscribers = lazy(() => import('./components/GoodAISubscribers.tsx'));
 
 const rootEl = document.getElementById('root');
 if (!rootEl) throw new Error('Root element #root not found');
@@ -33,6 +34,8 @@ root.render(
           <Route path="/" element={<GoodfoodGrowthStrategy />} />
           <Route path="/canada-meal-kit-demographics" element={<CanadaMealKitDemographics />} />
           <Route path="/canada-rte" element={<CanadaRTE />} />
+          <Route path="/goodai" element={<GoodAISubscribers />} />
+          <Route path="/goodai/subscribers" element={<GoodAISubscribers />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

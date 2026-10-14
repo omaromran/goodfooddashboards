@@ -324,6 +324,9 @@ export default function GoodfoodGrowthStrategy() {
                 <Link to="/canada-rte" className="text-emerald-100 hover:text-white text-sm font-medium underline">
                   Ready-to-eat (RTE)
                 </Link>
+                <Link to="/goodai/subscribers" className="text-emerald-100 hover:text-white text-sm font-medium underline">
+                  GoodAI subscribers
+                </Link>
               </div>
             </div>
           </div>

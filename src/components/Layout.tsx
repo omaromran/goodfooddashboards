@@ -50,6 +50,9 @@ export function Layout({ children }: { children: ReactNode }) {
             <Link to="/canada-rte" className="layout-demographics-link">
               Ready-to-eat (RTE)
             </Link>
+            <Link to="/goodai/subscribers" className="layout-demographics-link">
+              GoodAI subscribers
+            </Link>
           </>
         </div>
       </header>
@@ -81,6 +84,9 @@ export function Layout({ children }: { children: ReactNode }) {
           </Link>
           <Link to="/canada-rte" className="nav-link layout-nav-page-link">
             Ready-to-eat (RTE)
+          </Link>
+          <Link to="/goodai/subscribers" className="nav-link layout-nav-page-link">
+            GoodAI subscribers
           </Link>
         </nav>
       </aside>
