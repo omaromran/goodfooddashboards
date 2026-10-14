@@ -112,7 +112,7 @@ export const subscriberFormulas = [
   },
   {
     name: "Logo churn rate",
-    formula: "Exiting ÷ starting subscribers",
+    formula: "Exiting / starting subscribers",
     sign: "Always ≥ 0. A rate is never negative.",
   },
   {

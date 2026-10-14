@@ -120,14 +120,14 @@ export default function GoodAISubscribers() {
             or a mix-up of two different populations on the same chart.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-amber-950">
-            Logo <strong>churn rate is never negative</strong>. It is exits ÷ starting subscribers, always ≥ 0. A
+            Logo <strong>churn rate is never negative</strong>. It is exits / starting subscribers, always ≥ 0. A
             negative “churn” number is usually either inverted net flow, or the week-over-week change in{" "}
             <strong>active customers</strong> (ordered in the last 90 days) — which can fall even while more people
             subscribe than cancel, because skips and inactivity are not cancellations.
           </p>
         </section>
 
-        <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
           <Kpi
             label="Weeks where entering > exiting"
             value={allEnteringGtExiting ? `${subscriberWeeks.length} / ${subscriberWeeks.length}` : "Mixed"}
@@ -143,11 +143,7 @@ export default function GoodAISubscribers() {
           <Kpi
             label="Logo churn rate"
             value="Always ≥ 0"
-            hint={
-              allChurnPositive
-                ? `${fmtPct(totals.exiting / (first?.startingSubscribers ?? 1) * 100, 1)} of starting base over the period`
-                : "Unexpected non-positive week"
-            }
+            hint={allChurnPositive ? "Weekly rate = exits / that week's starting base" : "Unexpected non-positive week"}
             tone="neutral"
           />
           <Kpi
